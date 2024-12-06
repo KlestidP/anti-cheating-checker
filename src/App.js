@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import getProbability from './findingProbability.js'
 
 const App = () => {
   const [code1, setCode1] = useState("");
@@ -12,7 +13,7 @@ const App = () => {
     setResult(null);
 
     setTimeout(() => {
-      const randomResult = Math.floor(Math.random() * 100);
+      const randomResult = getProbability(code1, code2);
       setResult(randomResult);
       setLoading(false);
     }, 2000);
