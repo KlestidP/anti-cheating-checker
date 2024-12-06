@@ -7,17 +7,32 @@ function gettingHashArray(code) {
     let curHash = 0;
     const p = 31;
     let library = false;
+    let multilineComment = false;
+    let onelineComment = false;
     for (let i = 0; i < code.length; i++) {
-        if (code[i] == '#') {
+        if (i !== code.length - 1) {
+            if (code[i] === '/' && code[i + 1] === '*') {
+                multilineComment = true
+            }
+            else if (code[i] === '*' && code[i + 1] === '/') {
+                multilineComment = false
+            }
+            else if (code[i] === '/' && code[i + 1] === '/') {
+                onelineComment = true
+            }
+        }
+        if (code[i] === '#') {
             library = true
         }
-        else if (code[i] == '\n') {
+        else if (code[i] === '\n') {
             library = false
+            onelineComment = false
         }
-        if (!library && !endOfWord(code[i])) {
+        const comment = onelineComment | multilineComment
+        if (!library && !comment && !endOfWord(code[i])) {
             curHash *= p;
             curHash += code[i].charCodeAt(0);
-        } else if (!library) {
+        } else if (!library && !comment) {
             if (curHash !== 0) {
                 words.push(curHash);
             }
