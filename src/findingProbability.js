@@ -29,7 +29,7 @@ function findLCS(first, second) {
 function getProbability(first, second) {
     const hFirst = gettingHashArray(first);
     const hSecond = gettingHashArray(second);
-    return Math.floor((findLCS(hFirst, hSecond) * 100) / Math.max(hFirst.length, hSecond.length));
+    return Math.floor((findLCS(hFirst, hSecond) * 100) / Math.min(hFirst.length, hSecond.length));
 }
 
 export default getProbability;

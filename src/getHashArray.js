@@ -6,11 +6,18 @@ function gettingHashArray(code) {
     const words = [];
     let curHash = 0;
     const p = 31;
+    let library = false;
     for (let i = 0; i < code.length; i++) {
-        if (!endOfWord(code[i])) {
+        if (code[i] == '#') {
+            library = true
+        }
+        else if (code[i] == '\n') {
+            library = false
+        }
+        if (!library && !endOfWord(code[i])) {
             curHash *= p;
             curHash += code[i].charCodeAt(0);
-        } else {
+        } else if (!library) {
             if (curHash !== 0) {
                 words.push(curHash);
             }
