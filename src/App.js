@@ -26,7 +26,7 @@ const App = () => {
       <header className="header">
         <div className="header-content">
           <img src={logo1} alt="Logo" className="header-logo" />
-          <h1>Code Similarity Checker</h1>
+          <h1>Anti Cheating Checker</h1>
         </div>
       </header>
       <div className="container">
