@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
 import getProbability from './findingProbability.js'
+import logo1 from "./logo1.png";
+import background from "./background.png";
 
 const App = () => {
   const [code1, setCode1] = useState("");
@@ -13,27 +15,19 @@ const App = () => {
     setResult(null);
 
     setTimeout(() => {
-      const randomResult = getProbability(code1, code2);
-      setResult(randomResult);
+      const algoResult = getProbability(code1, code2);
+      setResult(algoResult);
       setLoading(false);
     }, 2000);
   };
 
   return (
-    <div className="app">
+    <div className="app" style={{ backgroundImage: `url(${background})` }}>      
       <header className="header">
-        <h1>Code Similarity Checker</h1>
-        <nav className="header-menu">
-          <a href="#home" className="menu-item">
-            Home
-          </a>
-          <a href="#about" className="menu-item">
-            About
-          </a>
-          <a href="#contact" className="menu-item">
-            Contact
-          </a>
-        </nav>
+        <div className="header-content">
+          <img src={logo1} alt="Logo" className="header-logo" />
+          <h1>Code Similarity Checker</h1>
+        </div>
       </header>
       <div className="container">
         <div className="chat-box">
