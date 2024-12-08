@@ -1,11 +1,12 @@
 function endOfWord(char) {
-    return char === ',' || char === ';' || char === ' ' || char === '{' || char === '}' || char === '\n';
+    return char === ',' || char === ';' || char === ' ' || char === '{' || char === '}' || char === '\n' || char == '<' || char == '>' || char == '(' || char == ')' || char == ':';
 }
 
 function gettingHashArray(code) {
     const words = [];
     let curHash = 0;
     const p = 31;
+    let numberOfInclusions = 0
     let library = false;
     let multilineComment = false;
     let onelineComment = false;
@@ -21,6 +22,12 @@ function gettingHashArray(code) {
                 onelineComment = true
             }
         }
+        if (i !== code.length - 2) {
+            if (code[i] == 's' && code[i + 1] == 't' && code[i + 2] == 'd') {
+                i += 2
+                continue
+            }
+        }
         if (code[i] === '#') {
             library = true
         }
@@ -29,10 +36,16 @@ function gettingHashArray(code) {
             onelineComment = false
         }
         const comment = onelineComment | multilineComment
-        if (!library && !comment && !endOfWord(code[i])) {
+        if (code[i] === '{' || code[i] === '}') {
+            if (!comment && !library) {
+                if (code[i] === '{') numberOfInclusions += 1
+                else numberOfInclusions -= 1
+            }
+        }
+        if (!library && !comment && !endOfWord(code[i]) && numberOfInclusions !== 0) {
             curHash *= p;
             curHash += code[i].charCodeAt(0);
-        } else if (!library && !comment) {
+        } else if (!library && !comment && numberOfInclusions !== 0) {
             if (curHash !== 0) {
                 words.push(curHash);
             }
