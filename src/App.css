@@ -18,7 +18,7 @@
 /* Header */
 .header {
   background-color: #004aad;
-  color: white;
+  color: rgb(255, 254, 254);
   display: flex;
   justify-content: flex-start;
   align-items: center;
